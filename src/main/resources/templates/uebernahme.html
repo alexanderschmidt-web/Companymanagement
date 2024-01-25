@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Neue Eintrag')"></head>
+
+<body>
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+    <div class="container mt-4 pt-1 pb-1 bg-light border" th:if="${gefundeneFahrzeug}">
+        <h5>Fahrzeug zur Übergabe:</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Typ</th>
+                    <th>Marke</th>
+                    <th>Kennzeichen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- gefundene Fahrzeug beim ersten Aufruf der Seite -->
+                <tr th:each="k : ${gefundeneFahrzeug}">
+                    <td th:text="${k.fahrzeugTyp}"></td>
+                    <td th:text="${k.marke}"></td>
+                    <td th:text="${k.kennzeichen}"></td>
+                    <td>
+                        <div class="container  bg-transparent border">
+                            <h5 class="text-danger" th:text="${fahrerNichtGefunden}"></h5>
+                            <div class="row  p-0 m-1">
+                                <span> <small> Fahrername eingeben </small> </span>
+                            </div>
+                            <div class="row p-0 mb-2">
+                                <form action="/sucheFahrer" method="post">
+                                    <div class="col">
+                                        <input type="text"  name="nachname" class="form-control col-md-2" >
+                                        <input type="hidden"  name="fahrzeugTyp" th:value="${k.fahrzeugTyp}" class="form-control" >
+                                        <input type="hidden"  name="marke" th:value="${k.marke}" class="form-control" >
+                                        <input type="hidden"  name="kennzeichen" th:value="${k.kennzeichen}" class="form-control" >
+                                    </div>
+                                    <div class="col mt-2 mb-1">
+                                        <button type="submit" class="btn btn-warning p-1 m-0">Suchen</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-4 pt-1 pb-1 bg-light border" th:if="${kfzZurUebergabe}">
+        <h5>Fahrzeug zur Übergabe:</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Typ</th>
+                    <th>Marke</th>
+                    <th>Kennzeichen</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- gefundene Fahrzeug zur Ubername beim zweiten Aufruf -->
+                <tr th:each="k : ${kfzZurUebergabe}">
+                    <td th:text="${k.fahrzeugTyp}"></td>
+                    <td th:text="${k.marke}"></td>
+                    <td th:text="${k.kennzeichen}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5 pt-1 pb-1 bg-light border" th:if="${fahrerGefunden}">
+        <h5>Fahrer:</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Anrede</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="f : ${fahrerGefunden}">
+                <td th:text="${f.id}"></td>
+                <td th:text="${f.anrede}"></td>
+                <td th:text="${f.vorname}"></td>
+                <td th:text="${f.nachname}"></td>
+                <td class="col-3">
+                    <div class="container">
+                        <div class="row p-0 m-0">
+                            <div class="col-md-auto">
+                                <form action="/updFahrer" method="post">
+                                    <!--th:value="${f.nachname}"
+                                    th:value="${f.nachname}"-->
+                                    <input type="hidden"  name="vorname" th:value="${f.vorname}" class="form-control">
+                                    <input type="hidden"  name="nachname" th:value="${f.nachname}" class="form-control">
+                                    <input type="hidden"  name="marke" th:value="${kfzZurUebergabe.marke}" class="form-control">
+                                    <input type="hidden"  name="kennzeichen" th:value="${kfzZurUebergabe.kennzeichen}" class="form-control">
+                                    <button type="submit" class="btn btn-info p-1 m-0">Fahrzeug uebergeben</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--  th:if="${fahrzeugUebergegeben}" -->
+    <div class="container mt-5 pt-1 pb-1 bg-light border" th:if="${fahrzeugUebergegeben}">
+        <h5>Übergabeprotokoll:</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fahrzeug</th>
+                    <th>Fahrer</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="p-0" th:each="f : ${fahrzeugUebergegeben}">
+                    <td class="p-0" >
+                        <div class="container">
+                            <div class="row p-0 m-0">
+                                <div class="col-md-auto"  th:text="${f.marke}"></div>
+                                <div class="col-md-auto" th:text="${f.kennzeichen}"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="container">
+                            <div class="row">
+                                <div class="row p-0 m-0">
+                                    <div class="col-md-auto"  th:text="${fahrerMitFahrzeug.vorname}"></div>
+                                    <div class="col-md-auto" th:text="${fahrerMitFahrzeug.nachname}"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <th:block th:replace="fragments.html :: foot"></th:block>
+
+</body>
+</html>

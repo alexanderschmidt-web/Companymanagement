@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Fuhrpark Bestand')"></head>
+
+<body>
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+
+                <h2>Fuhrpark</h2>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Typ</th>
+                            <th>Marke</th>
+                            <th>Kennzeichen</th>
+                            <th>Status</th>
+                            <th>Fahrer</th>
+                            <th>Übergabezeit</th>
+                            <th>Rückgabezeit</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${pkws}">
+                        <td>PKW</td>
+                        <td th:text="${p.marke}"></td>
+                        <td th:text="${p.kennzeichen}"></td>
+                        <td th:text="${p.fahrzeugStatus}"></td>
+                        <td th:text="${p.fahrer}"></td>
+                        <td th:text="${p.uebergabezeit}"></td>
+                        <td th:text="${p.rueckgabezeit}"></td>
+                        <td class="col-3">
+                            <div class="container">
+                                <div class="row p-0 m-0">
+                                    <div class="col-md-auto">
+                                        <form action="" method="post">
+                                            <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <form action="" method="post">
+                                            <button type="submit" class="btn btn-danger p-1 m-0">Löschen</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="l : ${lkws}">
+                        <td>LKW</td>
+                        <td th:text="${l.marke}"></td>
+                        <td th:text="${l.kennzeichen}"></td>
+                        <td th:text="${l.fahrzeugStatus}"></td>
+                        <td th:text="${l.fahrer}"></td>
+                        <td th:text="${l.uebergabezeit}"></td>
+                        <td th:text="${l.rueckgabezeit}"></td>
+                        <td class="col-3">
+                            <div class="container">
+                                <div class="row p-0 m-0">
+                                    <div class="col-md-auto">
+                                        <form action="" method="post">
+                                            <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <form action="" method="post">
+                                            <button type="submit" class="btn btn-danger p-1 m-0">Löschen</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col pt-2">
+                <form action="/neukfz" method="post">
+                    <button type="submit" class="btn btn-success">neues Fahrzeug eintragen</button>
+                </form>
+            </div>
+        </div>
+<!--
+        <div class="row mt-2">
+            <div class="col pt-2">
+                <form action="/saveuser" method="post">
+                    <button type="submit" class="btn btn-success">User erstellen</button>
+                </form>
+            </div>
+        </div>
+-->
+    </div>
+
+    <th:block th:replace="fragments.html :: foot"></th:block>
+
+</body>
+</html>

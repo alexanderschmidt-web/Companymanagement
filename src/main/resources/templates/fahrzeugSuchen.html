@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Fahrzeug suchen')"></head>
+
+<body>
+
+  <nav th:replace="fragments.html :: mainNav"></nav>
+
+  <main class="container mt-5">
+
+
+    <div class="row">
+      <div class="col-md-8 col-lg-6">
+          <div class="container">
+              <h3>Fahrzeug suchen</h3>
+
+          </div>
+
+        <form action="/findeKfz" method="post">
+            <div class="container mt-3">
+
+                <div class="row pb-2 bg-light border">
+                    <h5 class="mb-1">Suchfilter</h5>
+                    <div class="col">
+                        <label for="fahrzeugTyp" class="form-label">Fahrzeugtyp</label>
+                        <select name="fahrzeugTyp" id="fahrzeugTyp" class="form-select">
+                            <option value="PKW">PKW</option>
+                            <option value="LKW">LKW</option>
+                            <option value="ANHAENGER">Anhänger</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="marke" class="form-label">Marke</label>
+                        <input type="text" id="marke" name="marke" class="form-control" >
+                    </div>
+
+                    <div class="col">
+                        <label for="kennzeichen" class="form-label">Kennzeichen</label>
+                        <input type="text" id="kennzeichen" name="kennzeichen" class="form-control">
+                    </div>
+
+                    <div class="col">
+                        <label for="status" class="form-label">Status</label>
+                        <select name="status" id="status" class="form-select">
+                            <option value="">-</option>
+                            <option value="FREI">FREI</option>
+                            <option value="VERLIEHEN">VERLIEHEN</option>
+                            <option value="UNBEKANNT">UNBEKANNT</option>
+                            <option value="DEFEKT">DEFEKT</option>
+                            <option value="GESPERRT">GESPERRT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col pt-2">
+                        <button type="submit" class="btn btn-success">Suchen</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+
+      <div class="container mt-5" th:if="${fahrzeugSuchen}">
+
+          <h5>Gefundene Fahrzeuge:</h5>
+
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>Typ</th>
+                      <th>Marke</th>
+                      <th>Kennzeichen</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr th:each="f : ${fahrzeugSuchen}">
+                      <td th:text="${f.fahrzeugTyp}"></td>
+                      <td th:text="${f.marke}"></td>
+                      <td th:text="${f.kennzeichen}"></td>
+                      <td th:text="${f.fahrzeugStatus}"></td>
+                      <td class="col-3">
+                          <div class="container">
+                              <div class="row p-0 m-0">
+                                  <div class="col-md-auto">
+                                      <form action="/editKfz" method="post">
+                                          <input type="hidden"  name="fahrzeugTyp" th:value="${f.fahrzeugTyp}" class="form-control" >
+                                          <input type="hidden"  name="marke" th:value="${f.marke}" class="form-control" >
+                                          <input type="hidden"  name="kennzeichen" th:value="${f.kennzeichen}" class="form-control" >
+                                          <input type="hidden"  name="fahrzeugStatus" th:value="${f.fahrzeugStatus}" class="form-control" >
+                                          <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
+                                      </form>
+                                  </div>
+                                  <div class="col-md-auto">
+                                      <form action="/saveFahrerToKfz" method="post">
+                                          <input type="hidden"  name="fahrzeugTyp" th:value="${f.fahrzeugTyp}" class="form-control" >
+                                          <input type="hidden"  name="marke" th:value="${f.marke}" class="form-control" >
+                                          <input type="hidden"  name="kennzeichen" th:value="${f.kennzeichen}" class="form-control" >
+                                          <input type="hidden"  name="fahrzeugStatus" th:value="${f.fahrzeugStatus}" class="form-control" >
+                                          <button type="submit" class="btn btn-info p-1 m-0">Freigeben</button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+      </div>
+
+
+
+
+  </main>
+
+  <th:block th:replace="fragments.html :: foot"></th:block>
+</body>
+</html>

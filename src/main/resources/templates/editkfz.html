@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Fahrzeug verwalten')"></head>
+
+<body>
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+    <div class="container mt-4">
+
+        <h4>Fahrzeug bearbeiten</h4>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Marke</th>
+                <th>Kennzeichen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="k : ${editkfz}">
+                <td th:text="${k.fahrzeugTyp}"></td>
+                <td th:text="${k.marke}"></td>
+                <td th:text="${k.kennzeichen}"></td>
+                <td th:text="${k.fahrzeugStatus}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <th:block th:replace="fragments.html :: foot"></th:block>
+
+</body>
+</html>

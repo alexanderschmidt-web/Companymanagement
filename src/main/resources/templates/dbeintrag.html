@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Neue Eintrag')"></head>
+
+<body>
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+
+                <h4>Folgendes Fahrzeug wurde erfolgreich eingetragen:</h4>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Typ</th>
+                            <th>Marke</th>
+                            <th>Kennzeichen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="f : ${dbeintrag}">
+                        <td th:text="${f.fahrzeugTyp}"></td>
+                        <td th:text="${f.marke}"></td>
+                        <td th:text="${f.kennzeichen}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments.html :: foot"></th:block>
+
+</body>
+</html>

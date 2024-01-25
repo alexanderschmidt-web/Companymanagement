@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Fahrer  Einträge')"></head>
+
+<body>
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+
+                <h2>Fahrer aus Datenbank</h2>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>anrede</th>
+                            <th>vorname</th>
+                            <th>nachname</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="f : ${fahrer}">
+                        <td th:text="${f.id}"></td>
+                        <td th:text="${f.anrede}"></td>
+                        <td th:text="${f.vorname}"></td>
+                        <td th:text="${f.nachname}"></td>
+                        <td class="col-3">
+                            <div class="container">
+                                <div class="row p-0 m-0">
+                                    <div class="col-md-auto">
+                                        <form action="" method="post">
+                                            <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <form action="" method="post">
+                                            <button type="submit" class="btn btn-danger p-1 m-0">Löschen</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col pt-2">
+                <form action="/neuefahrer" method="post">
+                    <button type="submit" class="btn btn-success">Fahrer eintragen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments.html :: foot"></th:block>
+
+</body>
+</html>

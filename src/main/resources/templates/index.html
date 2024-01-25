@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de"  xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Fuhrpark Management')">
+    <link href="/css/main.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+
+    <div  class="header">
+
+        <div class="container p-5">
+            <div  class="row mt-5 p-3">
+                <div class="col-2">
+                </div>
+                <div class="col-8 p-5 nottranspar text-primary-emphasis">
+                    <h4>Fuhrparkverwaltung</h4>
+                    <p class="mb-5 mt-4">
+                        Das Fuhrpark-Managementsystem bietet maßgeschneiderte Funktionen zur effizienten Verwaltung und Organisation eines Fahrzeugbestands.
+                        Es liefert Informationen zum Fahrzeugstatus, Kraftstoff- und Reparaturkosten, Kilometerstand und Servicebedarf.
+                        Darüber hinaus ermöglicht das System die Planung von Wartungsarbeiten, die Überwachung von Versicherungs- und Zulassungsdaten sowie
+                        die Erstellung aussagekräftiger Berichte zur Fahrzeugnutzung und Betriebskosten.
+                    </p>
+                    <div class="container p-0">
+                        <form action="/fahrzeugliste" method="post">
+                            <button type="submit" class="btn btn-info">zur Fahrzeugflotte</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</header>
+
+
+
+
+</body>
+</html>

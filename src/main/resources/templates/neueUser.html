@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Neue User')"></head>
+
+<body>
+
+  <nav th:replace="fragments.html :: mainNav"></nav>
+
+  <main class="container mt-4">
+    <div class="row">
+      <div class="col-md-8 col-lg-6 pt-3">
+
+        <h3>Einen neuen Benutzer eintragen</h3>
+
+        <form action="/saveuser" method="post" th:object="${user}">
+
+            <div class="mb-3">
+                <label for="anrede" class="form-label">Anrede</label>
+                <select th:field="*{anrede}" class="form-select">
+                    <option value="HERR">Herr</option>
+                    <option value="FRAU">Frau</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="vorname" class="form-label">Vorname</label>
+                <input type="text" th:field="*{vorname}" class="form-control" >
+            </div>
+
+            <div class="mb-3">
+                <label for="nachname" class="form-label">Nachname</label>
+                <input type="text" th:field="*{nachname}" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Nachname</label>
+                <input type="text" th:field="*{email}" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Nachname</label>
+                <input type="text" th:field="*{password}" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-success">Speichern</button>
+
+        </form>
+
+      </div>
+    </div>
+
+      <div class="container mt-5" th:if="${neueUser}">
+
+          <h5>Benutzer eingetragen:</h5>
+
+          <table class="table table-striped">
+              <thead>
+              <tr>
+                  <th>Anrede</th>
+                  <th>Vorname</th>
+                  <th>Nachname</th>
+                  <th>Email</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="u : ${neueFahrer}">
+                  <td th:text="${u.anrede}"></td>
+                  <td th:text="${u.vorname}"></td>
+                  <td th:text="${u.nachname}"></td>
+                  <td th:text="${u.email}"></td>
+              </tr>
+              </tbody>
+          </table>
+
+      </div>
+  </main>
+
+  <th:block th:replace="fragments.html :: foot"></th:block>
+</body>
+</html>

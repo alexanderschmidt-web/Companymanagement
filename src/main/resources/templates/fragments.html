@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+    <head th:fragment="head(title)">
+        <meta charset="UTF-8">
+        <title th:text="${title}"></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+        <link href="/css/main.css" type="text/css" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav th:fragment="mainNav" class="navbar navbar-expand-sm text-light"  style="background-color: rgba(108,123,139,1.0);" data-bs-theme="dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse text-light" id="mainNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-white navigation__list-item-link" th:classappend="${active} == 'list' ? 'active' : ''" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white navigation__list-item-link" th:classappend="${active} == 'list' ? 'active' : ''" href="/fahrzeugliste">Fahrzeugbestand</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white  navigation__list-item-link" th:classappend="${active} == 'settings' ? 'active' : ''" href="/suchekfz">Suchen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white  navigation__list-item-link" th:classappend="${active} == 'settings' ? 'active' : ''" href="/fahrerliste">Fahrer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <th:block th:fragment="foot">
+            <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+        </th:block>
+    </body>
+</html>

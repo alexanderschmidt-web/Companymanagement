@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Neues Fahrzeug')"></head>
+
+<body>
+
+  <nav th:replace="fragments.html :: mainNav"></nav>
+
+  <main class="container mt-4">
+    <div class="row">
+      <div class="col-md-8 col-lg-6 pt-3">
+
+        <h3>Neues Fahrzeug anlegen</h3>
+
+        <form action="/saveKfz" enctype="json" method="post">
+
+            <div class="mb-3">
+                <label for="fahrzeugTyp" class="form-label">Fahrzeugtyp</label>
+                <select name="fahrzeugTyp" id="fahrzeugTyp" class="form-select">
+                    <option value="PKW">PKW</option>
+                    <option value="LKW">LKW</option>
+                    <option value="ANHAENGER">Anhänger</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="marke" class="form-label">Marke</label>
+                <input type="text" id="marke" name="marke" class="form-control" >
+            </div>
+
+            <div class="mb-3">
+                <label for="kennzeichen" class="form-label">Kennzeichen</label>
+                <input type="text" id="kennzeichen" name="kennzeichen" class="form-control">
+            </div>
+
+            <input type="hidden" id="status" name="status" >
+
+            <button type="submit" class="btn btn-success">Speichern</button>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <th:block th:replace="fragments.html :: foot"></th:block>
+</body>
+</html>
