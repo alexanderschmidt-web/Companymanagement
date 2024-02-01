@@ -1,6 +1,7 @@
 package de.aschmidt.vehiclemanagement.controller;
 
 
+import de.aschmidt.vehiclemanagement.model.fahrzeug.Fahrzeug;
 import de.aschmidt.vehiclemanagement.model.person.Fahrer;
 import de.aschmidt.vehiclemanagement.repositories.FahrerRepository;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,11 @@ public class FahrerDBController {
         this.fahrerRepository = kfzRepository;
     }
 
-    @RequestMapping("/fahrerliste")
+    @RequestMapping("/fahrer/fahrerliste")
     public String zeigeFahrzeuge(Model model) {
         var fahrer = fahrerRepository.findAllFahrer(); // alle Fahrzeuge auslesen
         model.addAttribute("fahrer", fahrer);
-        return "fahrerliste.html";
+        return "fahrer/fahrerliste.html";
     }
 
     @RequestMapping(path = "/saveFahrer", method = RequestMethod.POST)
@@ -40,7 +41,7 @@ public class FahrerDBController {
         fahrerRepository.storeFahrer(f);
         model.addAttribute("neueFahrer", f);
 
-        return "neueFahrer.html";
+        return "fahrer/neueFahrer.html";
     }
 
     @RequestMapping(path = "/findeFahrer", method = RequestMethod.POST)
@@ -56,7 +57,31 @@ public class FahrerDBController {
 
     @RequestMapping("/neuefahrer")
     public String fahrzeugSuchen(Model model) {
-        return "neueFahrer.html";
+        return "fahrer/neueFahrer.html";
+    }
+
+
+    @RequestMapping(path = "/fahrer/editFahrer", method = RequestMethod.POST)
+    public String editFahrer (
+            @RequestParam int id,
+            Model model
+    ) {
+        List<Fahrer> gefunden =  fahrerRepository.searchFahrerById(id);
+        model.addAttribute("fahrer", gefunden);
+        return "fahrer/editfahrer.html";
+    }
+
+
+    @RequestMapping(path = "/delfahrer", method = RequestMethod.POST)
+    public String delKfz (
+            @RequestParam int id,
+            Model model
+    ) {
+        fahrerRepository.delFahrerById(id);
+
+        var fahrer = fahrerRepository.findAllFahrer(); // alle Fahrzeuge auslesen
+        model.addAttribute("fahrer", fahrer);
+        return "fahrer/fahrerliste.html";
     }
 
 }

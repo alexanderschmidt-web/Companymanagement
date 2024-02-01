@@ -6,6 +6,7 @@
 <body>
 
     <nav th:replace="fragments.html :: mainNav"></nav>
+    <th:block th:replace="fragments.html :: baustelle"></th:block>
 
     <div class="container mt-4">
         <div class="row">
@@ -16,6 +17,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Typ</th>
                             <th>Marke</th>
                             <th>Kennzeichen</th>
@@ -28,6 +30,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="p : ${pkws}">
+                        <td th:text="${p.id}"></td>
                         <td>PKW</td>
                         <td th:text="${p.marke}"></td>
                         <td th:text="${p.kennzeichen}"></td>
@@ -35,24 +38,29 @@
                         <td th:text="${p.fahrer}"></td>
                         <td th:text="${p.uebergabezeit}"></td>
                         <td th:text="${p.rueckgabezeit}"></td>
-                        <td class="col-3">
+                        <td class="col-1">
                             <div class="container">
                                 <div class="row p-0 m-0">
                                     <div class="col-md-auto">
-                                        <form action="" method="post">
+                                        <form action="/kfz/editKfz" method="post">
+                                            <input type="hidden"  name="fahrzeugTyp" th:value="PKW" class="form-control" >
+                                            <input type="hidden"  name="id" th:value="${p.id}" class="form-control" >
                                             <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
                                         </form>
                                     </div>
+                                    <!--
                                     <div class="col-md-auto">
                                         <form action="" method="post">
                                             <button type="submit" class="btn btn-danger p-1 m-0">Löschen</button>
                                         </form>
                                     </div>
+                                    -->
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr th:each="l : ${lkws}">
+                        <td th:text="${l.id}"></td>
                         <td>LKW</td>
                         <td th:text="${l.marke}"></td>
                         <td th:text="${l.kennzeichen}"></td>
@@ -60,19 +68,24 @@
                         <td th:text="${l.fahrer}"></td>
                         <td th:text="${l.uebergabezeit}"></td>
                         <td th:text="${l.rueckgabezeit}"></td>
-                        <td class="col-3">
+                        <td class="col-1">
                             <div class="container">
                                 <div class="row p-0 m-0">
                                     <div class="col-md-auto">
-                                        <form action="" method="post">
+                                        <form action="/kfz/editKfz" method="post">
+                                            <input type="hidden"  name="fahrzeugTyp" th:value="LKW" class="form-control" >
+                                            <input type="hidden"  name="id" th:value="${l.id}" class="form-control" >
                                             <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
                                         </form>
                                     </div>
+                                    <!--
                                     <div class="col-md-auto">
-                                        <form action="" method="post">
+                                        <form action="/popup" method="post">
+                                            <input type="hidden"  name="kennzeichen" th:value="${l.kennzeichen}" class="form-control" >
                                             <button type="submit" class="btn btn-danger p-1 m-0">Löschen</button>
                                         </form>
                                     </div>
+                                    -->
                                 </div>
                             </div>
                         </td>
@@ -90,16 +103,47 @@
                 </form>
             </div>
         </div>
-<!--
-        <div class="row mt-2">
-            <div class="col pt-2">
-                <form action="/saveuser" method="post">
-                    <button type="submit" class="btn btn-success">User erstellen</button>
-                </form>
+    </div>
+
+    <!--------------------------============== JS POP UP  ===========-----------------------------
+
+    <div class="center">
+        <button id="show-login">Login</button>
+    </div>
+
+    <div class="popup">
+        <div class="close-btn">&times;</div>
+        <div class="form">
+            <h2>Eintrag löschen?</h2>
+            <div class="ft">1
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <button>Sign in</button>
+            </div>
+            <div class="form-element">
+                <a href="#">Forgot password?</a>
             </div>
         </div>
--->
     </div>
+
+    <script>
+        const $ = q => document.querySelector(q)
+
+        document.querySelector("#show-login").addEventListener("click",function(){
+            const bestaetForm = document.querySelector(".popup");
+            bestaetForm.classList.add("active");
+            const dr = $("#loeschf").value
+            $(".ft").innerHTML = dr;
+        });
+        document.querySelector(".popup .close-btn").addEventListener("click",function(){
+        document.querySelector(".popup").classList.remove("active");
+        });
+    </script>
+
+    ----------------------------------------------------------------------------------------------->
+
 
     <th:block th:replace="fragments.html :: foot"></th:block>
 

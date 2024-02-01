@@ -10,24 +10,25 @@
 <header>
 
     <nav th:replace="fragments.html :: mainNav"></nav>
-
+    <th:block th:replace="fragments.html :: baustelle"></th:block>
 
     <div  class="header">
 
         <div class="container p-5">
-            <div  class="row mt-5 p-3">
-                <div class="col-2">
-                </div>
-                <div class="col-8 p-5 nottranspar text-primary-emphasis">
+            <div class="row pl-5">
+
+            </div>
+            <div  class="row mt-5 p-2">
+                <div class="col-10 p-5 nottranspar text-primary-emphasis">
                     <h4>Fuhrparkverwaltung</h4>
                     <p class="mb-5 mt-4">
-                        Das Fuhrpark-Managementsystem bietet maßgeschneiderte Funktionen zur effizienten Verwaltung und Organisation eines Fahrzeugbestands.
-                        Es liefert Informationen zum Fahrzeugstatus, Kraftstoff- und Reparaturkosten, Kilometerstand und Servicebedarf.
-                        Darüber hinaus ermöglicht das System die Planung von Wartungsarbeiten, die Überwachung von Versicherungs- und Zulassungsdaten sowie
-                        die Erstellung aussagekräftiger Berichte zur Fahrzeugnutzung und Betriebskosten.
+                        Das Fuhrpark-Managementsystem ist auf maßgeschneiderte Funktionen zur Verwaltung und Organisation eines
+                        Fahrzeugbestands ausgerichtet. Es liefert Informationen zum Fahrzeugstatus, Kraftstoff- und Reparaturkosten, Kilometerstand
+                        und Servicebedarf. Darüber hinaus liegt der Fokus auf der Planung von Wartungsarbeiten, Monitoring von Versicherungs-
+                        und Zulassungsdaten sowie der Erstellung aussagekräftiger Berichte zur Fahrzeugnutzung und der Kosten um Effizient des Betriebes zu steigern.
                     </p>
                     <div class="container p-0">
-                        <form action="/fahrzeugliste" method="post">
+                        <form action="/kfz/fahrzeugliste" method="post">
                             <button type="submit" class="btn btn-info">zur Fahrzeugflotte</button>
                         </form>
                     </div>
@@ -40,9 +41,6 @@
 
 
 </header>
-
-
-
 
 </body>
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments.html :: head('Fahrer verwalten')"></head>
+
+<body th:with="f=${fahrer[0]}">
+
+    <nav th:replace="fragments.html :: mainNav"></nav>
+
+    <div class="container mt-4">
+
+        <h4>Fahrzeug bearbeiten</h4>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Anrede</th>
+                <th>Vornane</th>
+                <th>Nachname</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${f.id}"></td>
+                <td th:text="${f.anrede}"></td>
+                <td th:text="${f.vorname}"></td>
+                <td th:text="${f.nachname}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <div class="row p-0 m-0">
+            <div class="col-md-auto">
+                <form action="" method="post">
+                    <button type="" class="btn btn-secondary p-1 m-0"  disabled = "true">Bearbeiten</button>
+                </form>
+            </div>
+            <div class="col-md-auto" >
+                <form action="/delfahrer" method="post">
+                    <input type="hidden"  name="id" th:value="${f.id}" class="form-control" >
+                    <button type="submit" class="btn btn-danger p-1 m-0">Fahrer Löschen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<th:block th:replace="fragments.html :: foot"></th:block>
+
+</body>
+</html>

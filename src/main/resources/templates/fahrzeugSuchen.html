@@ -6,6 +6,7 @@
 <body>
 
   <nav th:replace="fragments.html :: mainNav"></nav>
+  <th:block th:replace="fragments.html :: baustelle"></th:block>
 
   <main class="container mt-5">
 
@@ -87,11 +88,9 @@
                           <div class="container">
                               <div class="row p-0 m-0">
                                   <div class="col-md-auto">
-                                      <form action="/editKfz" method="post">
+                                      <form action="/kfz/editKfz" method="post">
                                           <input type="hidden"  name="fahrzeugTyp" th:value="${f.fahrzeugTyp}" class="form-control" >
-                                          <input type="hidden"  name="marke" th:value="${f.marke}" class="form-control" >
-                                          <input type="hidden"  name="kennzeichen" th:value="${f.kennzeichen}" class="form-control" >
-                                          <input type="hidden"  name="fahrzeugStatus" th:value="${f.fahrzeugStatus}" class="form-control" >
+                                          <input type="hidden"  name="id" th:value="${f.id}" class="form-control" >
                                           <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
                                       </form>
                                   </div>

@@ -183,4 +183,51 @@ public class FahrzeugRepository {
         }
     }
 
+    public List<Fahrzeug> searchKfzById(String fahrzeugTyp, int id) {
+        try {
+            String tabName = "";
+            if(fahrzeugTyp.equalsIgnoreCase("LKW")) tabName = "lkws";
+            if(fahrzeugTyp.equalsIgnoreCase("PKW")) tabName = "pkws";
+            String sql = "SELECT * FROM " + tabName + " WHERE id = '" + id + "'";
+
+            RowMapper<Fahrzeug> kfzRowMapper = (r, i) -> {
+                Fahrzeug rowObject = new Fahrzeug();
+                rowObject.setFahrzeugTyp(fahrzeugTyp);
+                rowObject.setId(r.getInt("id"));
+                rowObject.setMarke(r.getString("marke"));
+                rowObject.setKennzeichen(r.getString("kennzeichen"));
+                rowObject.setFahrzeugStatus(FahrzeugStatus.valueOf(r.getString("status")));
+                rowObject.setFahrer(r.getString("fahrer"));
+
+                LocalDateTime uebergabezeitFromDB = r.getObject("uebergabezeit", LocalDateTime.class);
+                rowObject.setUebergabezeit(uebergabezeitFromDB);
+
+                LocalDateTime rueckgabezeitFromDB = r.getObject("rueckgabezeit", LocalDateTime.class);
+                rowObject.setRueckgabezeit(rueckgabezeitFromDB);
+
+                return rowObject;
+            };
+
+            return jdbc.query(sql, kfzRowMapper);
+
+        } catch (DataAccessException e) {
+            throw new ExeptionSaveToDB("KFZ-Suchanfrage zum Dataenbank ist gescheitert! SELECT Befehl nicht durchgekommen");
+        }
+    }
+
+    public  void delById(String fahrzeugTyp, int id) {
+        try {
+            String tabName = "";
+            if(fahrzeugTyp.equalsIgnoreCase("LKW")) tabName = "lkws";
+            if(fahrzeugTyp.equalsIgnoreCase("PKW")) tabName = "pkws";
+            String sql = "DELETE FROM " + tabName + " WHERE id = '" + id + "'";
+
+            jdbc.execute(sql);
+
+
+        } catch (DataAccessException e) {
+            throw new ExeptionSaveToDB("Daten konnten nicht geloescht werden!");
+        }
+    }
+
 }

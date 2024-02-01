@@ -8,6 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
         <link href="/css/main.css" type="text/css" rel="stylesheet">
+        <link href="/css/popup.css" type="text/css" rel="stylesheet">
     </head>
 
     <body>
@@ -23,21 +24,34 @@
                             <a class="nav-link text-white navigation__list-item-link" th:classappend="${active} == 'list' ? 'active' : ''" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white navigation__list-item-link" th:classappend="${active} == 'list' ? 'active' : ''" href="/fahrzeugliste">Fahrzeugbestand</a>
+                            <a class="nav-link text-white navigation__list-item-link" th:classappend="${active} == 'list' ? 'active' : ''" href="/kfz/fahrzeugliste">Fahrzeugbestand</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white  navigation__list-item-link" th:classappend="${active} == 'settings' ? 'active' : ''" href="/suchekfz">Suchen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white  navigation__list-item-link" th:classappend="${active} == 'settings' ? 'active' : ''" href="/fahrerliste">Fahrer</a>
+                            <a class="nav-link text-white  navigation__list-item-link" th:classappend="${active} == 'settings' ? 'active' : ''" href="/fahrer/fahrerliste">Fahrer</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <!--
+        <nav th:fragment="mainNav" class="navbar navbar-expand-sm"  style="font-size:0.9em; " data-bs-theme="dark">
+            <div class="container">
+                <span>Die Anwendung befindet sich in Entwicklungsphase</span>
+            </div>
+        </nav>
+-->
 
         <th:block th:fragment="foot">
             <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+        </th:block>
+
+        <th:block th:fragment="baustelle"><!--#FFD700   grau text: #BDC2C7;-->
+            <div class="" style="wight:100%; background-color: #60717C; text-align:center; border-bottom: 0px solid #ffc125; font-size:0.8em; color:#BDC2C7; border-top: 0px solid #ffc125;">
+                <span>Die Anwendung befindet sich in der <span style="">Entwicklungsphase</span></span>
+            </div>
         </th:block>
     </body>
 </html>

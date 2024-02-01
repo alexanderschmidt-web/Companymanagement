@@ -66,17 +66,32 @@ public class FahrzeugDBController {
         return "fahrzeugSuchen.html";
     }
 
-    @RequestMapping(path = "/editKfz", method = RequestMethod.POST)
+    @RequestMapping(path = "/kfz/editKfz", method = RequestMethod.POST)
     public String editKfz (
             @RequestParam String fahrzeugTyp,
-            @RequestParam String marke,
-            @RequestParam String kennzeichen,
-            @RequestParam String fahrzeugStatus,
+            //@RequestParam String marke,
+            //@RequestParam String kennzeichen,
+            @RequestParam int id,
             Model model
     ) {
-        List<Fahrzeug> gefunden =  kfzRepository.searchKfz(fahrzeugTyp, marke, kennzeichen, fahrzeugStatus);
-        model.addAttribute("editkfz", gefunden);
-        return "editkfz.html";
+        List<Fahrzeug> gefunden =  kfzRepository.searchKfzById(fahrzeugTyp, id);
+        model.addAttribute("kfz", gefunden);
+        return "kfz/editkfz.html";
+    }
+
+    @RequestMapping(path = "/delkfz", method = RequestMethod.POST)
+    public String delKfz (
+            @RequestParam String fahrzeugTyp,
+            @RequestParam int id,
+            Model model
+    ) {
+        kfzRepository.delById(fahrzeugTyp, id);
+
+        var pkws = kfzRepository.findAllPkw(); // alle Fahrzeuge auslesen
+        var lkws = kfzRepository.findAllLkw();
+        model.addAttribute("pkws", pkws);
+        model.addAttribute("lkws", lkws);
+        return "kfz/fahrzeugliste.html";
     }
 
 }

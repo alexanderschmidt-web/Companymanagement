@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ManageController {
@@ -33,15 +34,16 @@ public class ManageController {
     return "index.html";
   }
 
-  @RequestMapping("/fahrzeugliste")
+  @RequestMapping("/kfz/fahrzeugliste")
   public String zeigeFahrzeuge(Model model) {
     var pkws = kfzRepository.findAllPkw(); // alle Fahrzeuge auslesen
     var lkws = kfzRepository.findAllLkw();
     model.addAttribute("pkws", pkws);
     model.addAttribute("lkws", lkws);
 
-    return "fahrzeugliste.html";
+    return "kfz/fahrzeugliste.html";
   }
+
 
   @RequestMapping("/suchekfz")
   public String fahrzeugSuchen(Model model) {

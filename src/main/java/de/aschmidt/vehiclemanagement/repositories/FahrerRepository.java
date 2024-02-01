@@ -1,11 +1,15 @@
 package de.aschmidt.vehiclemanagement.repositories;
 
+import de.aschmidt.vehiclemanagement.model.fahrzeug.Fahrzeug;
+import de.aschmidt.vehiclemanagement.model.fahrzeug.FahrzeugStatus;
 import de.aschmidt.vehiclemanagement.model.person.Fahrer;
 import de.aschmidt.vehiclemanagement.repositories.exteptions.ExeptionSaveToDB;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -67,6 +71,36 @@ public class FahrerRepository {
             return jdbc.query(sql, pkwRowMapper);
         } catch (DataAccessException e) {
             throw new ExeptionSaveToDB("Abfrage zum Dataenbank ist gescheitert! SELECT Befehl nicht durchgekommen");
+        }
+    }
+
+    public List<Fahrer> searchFahrerById(int id) {
+        try {
+            String sql = "SELECT * FROM fahrer WHERE id = '" + id + "'";
+
+            RowMapper<Fahrer> fahrerRowMapper = (r, i) -> {
+                Fahrer rowObject = new Fahrer();
+                rowObject.setId(r.getInt("id"));
+                rowObject.setAnrede(r.getString("anrede"));
+                rowObject.setVorname(r.getString("vorname"));
+                rowObject.setNachname(r.getString("nachname"));
+
+                return rowObject;
+            };
+
+            return jdbc.query(sql, fahrerRowMapper);
+
+        } catch (DataAccessException e) {
+            throw new ExeptionSaveToDB("Fahrer-Suchanfrage zum Dataenbank ist gescheitert! SELECT Befehl nicht durchgekommen");
+        }
+    }
+
+    public  void delFahrerById(int id) {
+        try {
+            String sql = "DELETE FROM fahrer WHERE id = '" + id + "'";
+            jdbc.execute(sql);
+        } catch (DataAccessException e) {
+            throw new ExeptionSaveToDB("Daten konnten nicht geloescht werden!");
         }
     }
 
