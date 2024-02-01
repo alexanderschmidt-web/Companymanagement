@@ -56,11 +56,11 @@ public class Fahrzeug {
         this.rueckgabezeit = rueckgabezeit;
     }
 
-    private LocalDateTime nextewartung;
-    public LocalDateTime getNextewartung() {
+    private LocalDate nextewartung;
+    public LocalDate getNextewartung() {
         return nextewartung;
     }
-    public void setNaextewartung(LocalDateTime naextewartung) {
+    public void setNaextewartung(LocalDate naextewartung) {
         this.nextewartung = naextewartung;
     }
 

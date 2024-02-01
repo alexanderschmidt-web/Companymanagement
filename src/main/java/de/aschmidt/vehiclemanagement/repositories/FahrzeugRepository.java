@@ -81,7 +81,7 @@ public class FahrzeugRepository {
                 LocalDateTime rueckgabezeitFromDB = r.getObject("rueckgabezeit", LocalDateTime.class);
                 rowObject.setRueckgabezeit(rueckgabezeitFromDB);
 
-                LocalDateTime nextewartungFromDB = r.getObject("nextewartung", LocalDateTime.class);
+                LocalDate nextewartungFromDB = r.getObject("nextewartung", LocalDate.class);
                 rowObject.setNaextewartung(nextewartungFromDB);
 
                 return rowObject;
@@ -111,7 +111,7 @@ public class FahrzeugRepository {
                 LocalDateTime rueckgabezeitFromDB = r.getObject("rueckgabezeit", LocalDateTime.class);
                 rowObject.setRueckgabezeit(rueckgabezeitFromDB);
 
-                LocalDateTime nextewartungFromDB = r.getObject("nextewartung", LocalDateTime.class);
+                LocalDate nextewartungFromDB = r.getObject("nextewartung", LocalDate.class);
                 rowObject.setNaextewartung(nextewartungFromDB);
 
                 return rowObject;
