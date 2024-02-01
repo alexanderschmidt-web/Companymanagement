@@ -1,7 +1,6 @@
 package de.aschmidt.vehiclemanagement.controller;
 
 
-import de.aschmidt.vehiclemanagement.model.fahrzeug.Fahrzeug;
 import de.aschmidt.vehiclemanagement.model.person.Fahrer;
 import de.aschmidt.vehiclemanagement.repositories.FahrerRepository;
 import org.springframework.stereotype.Controller;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class FahrerDBController {
+public class FahrerController {
     private final FahrerRepository fahrerRepository;
-    public FahrerDBController(FahrerRepository kfzRepository) {
+    public FahrerController(FahrerRepository kfzRepository) {
         this.fahrerRepository = kfzRepository;
     }
 
@@ -26,6 +25,11 @@ public class FahrerDBController {
         return "fahrer/fahrerliste.html";
     }
 
+    // -----------   Fahrer anlegen   --------------
+    @RequestMapping("/neueFahrer")
+    public String fahrergAnlegen(Model model) {
+        return "neueFahrer.html";
+    }
     @RequestMapping(path = "/saveFahrer", method = RequestMethod.POST)
     public String saveFahrer (
             @RequestParam String anrede,
@@ -40,7 +44,6 @@ public class FahrerDBController {
         f.setNachname(nachname);
         fahrerRepository.storeFahrer(f);
         model.addAttribute("neueFahrer", f);
-
         return "fahrer/neueFahrer.html";
     }
 
@@ -52,7 +55,7 @@ public class FahrerDBController {
     ) {
         List<Fahrer> gefunden =  fahrerRepository.searchFahrer(vorname, nachname);
         model.addAttribute("fahrerSuchen", gefunden);
-        return "fahrzeugSuchen.html";
+        return "kfz/fahrzeugSuchen.html";
     }
 
     @RequestMapping("/neuefahrer")

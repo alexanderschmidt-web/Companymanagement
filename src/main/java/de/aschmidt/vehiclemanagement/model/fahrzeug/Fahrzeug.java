@@ -1,5 +1,6 @@
 package de.aschmidt.vehiclemanagement.model.fahrzeug;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Fahrzeug {
@@ -53,6 +54,14 @@ public class Fahrzeug {
     }
     public void setRueckgabezeit(LocalDateTime rueckgabezeit) {
         this.rueckgabezeit = rueckgabezeit;
+    }
+
+    private LocalDateTime nextewartung;
+    public LocalDateTime getNextewartung() {
+        return nextewartung;
+    }
+    public void setNaextewartung(LocalDateTime naextewartung) {
+        this.nextewartung = naextewartung;
     }
 
 

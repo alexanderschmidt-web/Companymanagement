@@ -9,6 +9,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,7 +27,7 @@ public class FahrzeugRepository {
     public void storePkw(Pkw pkw) {
         try {
             String sql =
-                    "INSERT INTO pkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL)";
+                    "INSERT INTO pkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, NULL)";
 
             //pkw.setUebergabezeit(LocalDateTime.now());
 
@@ -42,7 +44,7 @@ public class FahrzeugRepository {
     public void storeLkw(Lkw lkw) {
         try {
             String sql =
-                    "INSERT INTO lkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL)";
+                    "INSERT INTO lkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, NULL)";
 
             //lkw.setUebergabezeit(LocalDateTime.now());
 
@@ -79,6 +81,9 @@ public class FahrzeugRepository {
                 LocalDateTime rueckgabezeitFromDB = r.getObject("rueckgabezeit", LocalDateTime.class);
                 rowObject.setRueckgabezeit(rueckgabezeitFromDB);
 
+                LocalDateTime nextewartungFromDB = r.getObject("nextewartung", LocalDateTime.class);
+                rowObject.setNaextewartung(nextewartungFromDB);
+
                 return rowObject;
             };
             return jdbc.query(sql, pkwRowMapper);
@@ -105,6 +110,9 @@ public class FahrzeugRepository {
 
                 LocalDateTime rueckgabezeitFromDB = r.getObject("rueckgabezeit", LocalDateTime.class);
                 rowObject.setRueckgabezeit(rueckgabezeitFromDB);
+
+                LocalDateTime nextewartungFromDB = r.getObject("nextewartung", LocalDateTime.class);
+                rowObject.setNaextewartung(nextewartungFromDB);
 
                 return rowObject;
             };

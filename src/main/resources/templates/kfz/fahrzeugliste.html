@@ -25,6 +25,7 @@
                             <th>Fahrer</th>
                             <th>Übergabezeit</th>
                             <th>Rückgabezeit</th>
+                            <th>Wartung am</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -38,6 +39,7 @@
                         <td th:text="${p.fahrer}"></td>
                         <td th:text="${p.uebergabezeit}"></td>
                         <td th:text="${p.rueckgabezeit}"></td>
+                        <td th:text="${p.nextewartung}"></td>
                         <td class="col-1">
                             <div class="container">
                                 <div class="row p-0 m-0">
@@ -68,6 +70,7 @@
                         <td th:text="${l.fahrer}"></td>
                         <td th:text="${l.uebergabezeit}"></td>
                         <td th:text="${l.rueckgabezeit}"></td>
+                        <td th:text="${l.nextewartung}"></td>
                         <td class="col-1">
                             <div class="container">
                                 <div class="row p-0 m-0">
@@ -98,7 +101,7 @@
 
         <div class="row mt-2">
             <div class="col pt-2">
-                <form action="/neukfz" method="post">
+                <form action="/kfz/neukfz" method="post">
                     <button type="submit" class="btn btn-success">neues Fahrzeug eintragen</button>
                 </form>
             </div>

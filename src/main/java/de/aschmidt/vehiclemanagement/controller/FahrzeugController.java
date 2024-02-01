@@ -15,13 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class FahrzeugDBController {
+public class FahrzeugController {
     private final FahrzeugRepository kfzRepository;
-    public FahrzeugDBController(FahrzeugRepository kfzRepository) {
+    public FahrzeugController(FahrzeugRepository kfzRepository) {
         this.kfzRepository = kfzRepository;
     }
 
-    @RequestMapping(path = "/saveKfz", method = RequestMethod.POST)
+    @RequestMapping("/kfz/fahrzeugliste")
+    public String zeigeFahrzeuge(Model model) {
+        var pkws = kfzRepository.findAllPkw(); // alle Fahrzeuge auslesen
+        var lkws = kfzRepository.findAllLkw();
+        model.addAttribute("pkws", pkws);
+        model.addAttribute("lkws", lkws);
+
+        return "kfz/fahrzeugliste.html";
+    }
+
+    @RequestMapping(path = "/kfz/saveKfz", method = RequestMethod.POST)
     public String saveKfz (
             @RequestParam String fahrzeugTyp,
             @RequestParam String marke,
@@ -36,7 +46,7 @@ public class FahrzeugDBController {
             p.setFahrzeugStatus(FahrzeugStatus.UNBEKANNT);
             p.setFahrer("");
             kfzRepository.storePkw(p);
-            model.addAttribute("dbeintrag", p);
+            model.addAttribute("kfzeintrag", p);
         }
         if(fahrzeugTyp.equalsIgnoreCase("LKW")) {
             Lkw l = new Lkw();
@@ -47,13 +57,23 @@ public class FahrzeugDBController {
             l.setFahrer("");
             kfzRepository.storeLkw(l);
 
-            model.addAttribute("dbeintrag", l);
+            model.addAttribute("kfzeintrag", l);
         }
-
-        return "dbeintrag.html";
+        return "kfz/kfzeintrag.html";
     }
 
-    @RequestMapping(path = "/findeKfz", method = RequestMethod.POST)
+
+    //            ----- KFZ Suche -----
+    @RequestMapping("/kfz/suchekfz")
+    public String fahrzeugSuchen(Model model) {
+        return "kfz/fahrzeugSuchen.html";
+    }
+    @RequestMapping("/kfz/gefundenkfz")
+    public String fahrzeugGef(Model model) {
+        return "kfz/fahrzeugSuchen.html";
+    }
+
+    @RequestMapping(path = "/kfz/findeKfz", method = RequestMethod.POST)
     public String findeKfz (
             @RequestParam String fahrzeugTyp,
             @RequestParam String marke,
@@ -63,7 +83,12 @@ public class FahrzeugDBController {
     ) {
         List<Fahrzeug> gefunden =  kfzRepository.searchKfz(fahrzeugTyp, marke, kennzeichen, status);
         model.addAttribute("fahrzeugSuchen", gefunden);
-        return "fahrzeugSuchen.html";
+        return "kfz/fahrzeugSuchen.html";
+    }
+
+    @RequestMapping("/kfz/neukfz")
+    public String fahrzeugAnlegen(Model model) {
+        return "kfz/neuesFahrzeug.html";
     }
 
     @RequestMapping(path = "/kfz/editKfz", method = RequestMethod.POST)
