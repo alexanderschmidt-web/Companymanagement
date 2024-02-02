@@ -33,10 +33,10 @@ input.invalid {
     var texterrorkm = "";
     var texterrorinterv = "";
     var texterrordatum = "";
-    if (kmEingabe < 1 || kmEingabe > 10 ||  intervallEingabe < 1 || datumEingabe == "") {
+    if (kmEingabe < 1  ||  intervallEingabe < 1 || datumEingabe == "") {
         event.preventDefault();
 
-        if (kmEingabe < 1 || kmEingabe > 10) {
+        if (kmEingabe < 1) {
             texterrorkm = "Bitte Kilometerstand als Ganzzahl eingeben";
         }
         if (intervallEingabe < 1) {
