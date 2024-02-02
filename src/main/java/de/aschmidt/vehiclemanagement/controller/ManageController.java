@@ -31,7 +31,20 @@ public class ManageController {
     return "index.html";
   }
 
+
+  @RequestMapping("/test")
+  public String getCalendar(@RequestParam String letztewartung) {
+
+    String[] datum = letztewartung.split("-");
+    System.out.println("Jahr: " + datum[0]);
+    System.out.println("Monat: " + datum[1]);
+    System.out.println("Tag: " + datum[2]);
+    return "index.html";
+  }
+
 }
+
+
 
 
 

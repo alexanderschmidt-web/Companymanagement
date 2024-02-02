@@ -1,12 +1,61 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://thymeleaf.org">
 
-<head th:replace="fragments.html :: head('Neues Fahrzeug')"></head>
+<head th:replace="fragments.html :: head('Neues Fahrzeug')">
+
+    <style>
+        #nameError {
+  display: none;
+  font-size: 0.8em;
+}
+
+#nameError.visible {
+  display: block;
+}
+
+input.invalid {
+  border-color: red;
+}
+    </style>
+</head>
 
 <body>
 
   <nav th:replace="fragments.html :: mainNav"></nav>
   <th:block th:replace="fragments.html :: baustelle"></th:block>
+
+  <script>
+    function myFunction() {
+
+    var kmEingabe = document.getElementById("letztewartungkm").value;
+    var intervallEingabe = document.getElementById("wartungsinterval").value;
+    var datumEingabe = document.getElementById("letztewartungdatum").value;
+    var texterrorkm = "";
+    var texterrorinterv = "";
+    var texterrordatum = "";
+    if (kmEingabe < 1 || kmEingabe > 10 ||  intervallEingabe < 1 || datumEingabe == "") {
+        event.preventDefault();
+
+        if (kmEingabe < 1 || kmEingabe > 10) {
+            texterrorkm = "Bitte Kilometerstand als Ganzzahl eingeben";
+        }
+        if (intervallEingabe < 1) {
+            texterrorinterv = "Das Wartungsintervall muss zwischen 1 und 4 Jahren liegen";
+        }
+        if (datumEingabe == "") {
+            texterrordatum = "Bitte geben Sie Datum von der letzten Wartung";
+        }
+    } else {
+        return true;
+    }
+
+    document.getElementById("errorkm").innerHTML = texterrorkm;
+    document.getElementById("errorinterv").innerHTML = texterrorinterv;
+    document.getElementById("errordatum").innerHTML = texterrordatum;
+
+}
+
+    </script>
 
   <main class="container mt-4">
     <div class="row">
@@ -14,7 +63,7 @@
 
         <h3>Neues Fahrzeug anlegen</h3>
 
-        <form action="/kfz/saveKfz" enctype="json" method="post">
+        <form action="/kfz/saveKfz" onsubmit="myFunction()" enctype="json" method="post">
 
             <div class="mb-3">
                 <label for="fahrzeugTyp" class="form-label">Fahrzeugtyp</label>
@@ -35,15 +84,53 @@
                 <input type="text" id="kennzeichen" name="kennzeichen" class="form-control">
             </div>
 
-            <input type="hidden" id="status" name="status" >
 
-            <button type="submit" class="btn btn-success">Speichern</button>
+
+            <div class="container mb-3">
+
+                <div class="row p-0">Wartung / Inspektion
+                </div>
+                <div class="row border ps-0 pb-1 fs-10">
+                    <div class="col-4 mb-0 pb-0">
+                        <label for="letztewartungdatum" class="form-label">letzte Wartung:</label>
+                        <input type="date" id="letztewartungdatum" name="letztewartungdatum" class="form-control">
+                        <span id="errordatum" style="font-size: 0.8rem; color:red;"></span>
+                    </div>
+                    <div class="col-4 ms-0 pe-0">
+                        <label for="letztewartungkm" class="form-label">durchgeführt bei (km):</label>
+                        <input type="number" id="letztewartungkm" name="letztewartungkm" class="form-control">
+                        <span id="errorkm" style="font-size: 0.8rem; color:red;"></span>
+                    </div>
+                    <div class="col-4 ms-0">
+                        <label for="wartungsinterval" class="form-label">Intervall (in Jahren):</label>
+                        <input type="number" id="wartungsinterval" name="wartungsinterval" class="form-control" style="width:55%;">
+                        <span id="errorinterv" style="font-size: 0.8rem; color:red;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Fahrz Status</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="UNBEKANNT">Unbekannt</option>
+                    <option value="FREI">Frei</option>
+                    <option value="GESPERRT">Gesperrt</option>
+                    <option value="VERLIEHEN">Verliehen</option>
+                    <option value="DEFEKT">Defekt</option>
+                </select>
+            </div>
+
+
+            <button id="submit-btn" type="submit" class="btn btn-success mt-4">Speichern</button>
 
         </form>
 
       </div>
     </div>
+
   </main>
+
+
 
   <th:block th:replace="fragments.html :: foot"></th:block>
 </body>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -33,18 +34,31 @@ public class FahrzeugController {
 
     @RequestMapping(path = "/kfz/saveKfz", method = RequestMethod.POST)
     public String saveKfz (
+            @RequestParam String letztewartungdatum,
+            @RequestParam int letztewartungkm,
+            @RequestParam int wartungsinterval,
             @RequestParam String fahrzeugTyp,
             @RequestParam String marke,
             @RequestParam String kennzeichen,
+            @RequestParam String status,
             Model model
     ) {
+        //letzte Wartung am..
+        String[] datum = letztewartungdatum.split("-");
+        LocalDate letzteWart = LocalDate.of(Integer.parseInt(datum[0]), Integer.parseInt(datum[1]), Integer.parseInt(datum[2]));
+
         if(fahrzeugTyp.equalsIgnoreCase("PKW")) {
+
             Pkw p = new Pkw();
             p.setFahrzeugTyp(fahrzeugTyp);
             p.setMarke(marke);
             p.setKennzeichen(kennzeichen);
-            p.setFahrzeugStatus(FahrzeugStatus.UNBEKANNT);
+            p.setFahrzeugStatus(FahrzeugStatus.valueOf(status));
             p.setFahrer("");
+            p.setLetztewartung(letzteWart);
+            p.setLetztewartungkm(letztewartungkm);
+            p.setWartungsinterval(wartungsinterval);
+            System.out.println(p.toString());
             kfzRepository.storePkw(p);
             model.addAttribute("kfzeintrag", p);
         }
@@ -53,8 +67,11 @@ public class FahrzeugController {
             l.setFahrzeugTyp(fahrzeugTyp);
             l.setMarke(marke);
             l.setKennzeichen(kennzeichen);
-            l.setFahrzeugStatus(FahrzeugStatus.UNBEKANNT);
+            l.setFahrzeugStatus(FahrzeugStatus.valueOf(status));
             l.setFahrer("");
+            l.setLetztewartung(letzteWart);
+            l.setLetztewartungkm(letztewartungkm);
+            l.setWartungsinterval(wartungsinterval);
             kfzRepository.storeLkw(l);
 
             model.addAttribute("kfzeintrag", l);

@@ -27,15 +27,22 @@ public class FahrzeugRepository {
     public void storePkw(Pkw pkw) {
         try {
             String sql =
-                    "INSERT INTO pkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, NULL)";
+                    "INSERT INTO pkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?)";
 
             //pkw.setUebergabezeit(LocalDateTime.now());
+            LocalDate nexteWartung = pkw.getLetztewartung().plusYears(pkw.getWartungsinterval());
+            pkw.setNextewartung(nexteWartung);
 
             jdbc.update(
-                    sql, pkw.getMarke(),
+                    sql,
+                    pkw.getMarke(),
                     pkw.getKennzeichen(),
-                    FahrzeugStatus.UNBEKANNT.toString(),
-                    pkw.getFahrer()
+                    pkw.getFahrzeugStatusString(),
+                    pkw.getFahrer(),
+                    pkw.getLetztewartung(),
+                    pkw.getLetztewartungkm(),
+                    pkw.getWartungsinterval(),
+                    pkw.getNextewartung()
             );
         } catch (DataAccessException e) {
             throw new ExeptionSaveToDB("Daten konnten nicht eingetragen werden! INSERT Befehl nicht durchgekommen");
@@ -44,16 +51,22 @@ public class FahrzeugRepository {
     public void storeLkw(Lkw lkw) {
         try {
             String sql =
-                    "INSERT INTO lkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, NULL)";
+                    "INSERT INTO lkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?)";
 
             //lkw.setUebergabezeit(LocalDateTime.now());
+            LocalDate nexteWartung = lkw.getLetztewartung().plusYears(lkw.getWartungsinterval());
+            lkw.setNextewartung(nexteWartung);
 
             jdbc.update(
                     sql,
                     lkw.getMarke(),
                     lkw.getKennzeichen(),
-                    FahrzeugStatus.UNBEKANNT.toString(),
-                    lkw.getFahrer()
+                    lkw.getFahrzeugStatusString(),
+                    lkw.getFahrer(),
+                    lkw.getLetztewartung(),
+                    lkw.getLetztewartungkm(),
+                    lkw.getWartungsinterval(),
+                    lkw.getNextewartung()
             );
         } catch (DataAccessException e) {
             throw new ExeptionSaveToDB("Daten konnten nicht eingetragen werden! INSERT Befehl nicht durchgekommen");
@@ -82,7 +95,7 @@ public class FahrzeugRepository {
                 rowObject.setRueckgabezeit(rueckgabezeitFromDB);
 
                 LocalDate nextewartungFromDB = r.getObject("nextewartung", LocalDate.class);
-                rowObject.setNaextewartung(nextewartungFromDB);
+                rowObject.setNextewartung(nextewartungFromDB);
 
                 return rowObject;
             };
@@ -112,7 +125,7 @@ public class FahrzeugRepository {
                 rowObject.setRueckgabezeit(rueckgabezeitFromDB);
 
                 LocalDate nextewartungFromDB = r.getObject("nextewartung", LocalDate.class);
-                rowObject.setNaextewartung(nextewartungFromDB);
+                rowObject.setNextewartung(nextewartungFromDB);
 
                 return rowObject;
             };

@@ -23,6 +23,9 @@ public class Fahrzeug {
 
     private FahrzeugStatus fahrzeugStatus = FahrzeugStatus.UNBEKANNT;
     public FahrzeugStatus getFahrzeugStatus() {return fahrzeugStatus;}
+    public String getFahrzeugStatusString() {
+        return fahrzeugStatus.toString();
+    }
     public void setFahrzeugStatus(FahrzeugStatus fahrzeugStatus) {this.fahrzeugStatus = fahrzeugStatus;}
 
     private String kennzeichen;
@@ -56,11 +59,35 @@ public class Fahrzeug {
         this.rueckgabezeit = rueckgabezeit;
     }
 
+    private LocalDate letztewartung;
+    public LocalDate getLetztewartung() {
+        return letztewartung;
+    }
+    public void setLetztewartung(LocalDate letztewartung) {
+        this.letztewartung = letztewartung;
+    }
+
+    private int letztewartungkm;
+    public int getLetztewartungkm() {
+        return letztewartungkm;
+    }
+    public void setLetztewartungkm(int letztewartungkm) {
+        this.letztewartungkm = letztewartungkm;
+    }
+
+    private int wartungsinterval;
+    public int getWartungsinterval() {
+        return wartungsinterval;
+    }
+    public void setWartungsinterval(int wartungsinterval) {
+        this.wartungsinterval = wartungsinterval;
+    }
+
     private LocalDate nextewartung;
     public LocalDate getNextewartung() {
         return nextewartung;
     }
-    public void setNaextewartung(LocalDate naextewartung) {
+    public void setNextewartung(LocalDate naextewartung) {
         this.nextewartung = naextewartung;
     }
 
@@ -108,7 +135,8 @@ public class Fahrzeug {
                 "Kennzeichen = " + kennzeichen + ", " +
                 ((motorIstAn) ? "Motorstatus = An, " : "Motorstatus = Aus, ") +
                 "Geschwindigkeit = " + geschwindigkeit + ", " +
-                "Fahrername = " + fahrer + ""
+                "Fahrername = " + fahrer + "" +
+                "nexte Wartung am = " + nextewartung + ", "
                 + "}";
     }
 }
