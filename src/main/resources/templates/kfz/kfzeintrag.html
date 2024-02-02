@@ -13,12 +13,16 @@
 
                 <h4>Folgendes Fahrzeug wurde erfolgreich eingetragen:</h4>
 
+                <div style="overflow-x:auto;">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Typ</th>
                             <th>Marke</th>
                             <th>Kennzeichen</th>
+                            <th>Km-Stand</th>
+                            <th>Status</th>
+                            <th>Wartung am</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,9 +30,13 @@
                         <td th:text="${f.fahrzeugTyp}"></td>
                         <td th:text="${f.marke}"></td>
                         <td th:text="${f.kennzeichen}"></td>
+                        <td th:text="${f.kmstand}"></td>
+                        <td th:text="${f.fahrzeugStatus}"></td>
+                        <td th:text="${f.nextewartung}"></td>
                     </tr>
                     </tbody>
                 </table>
+                </div>
 
             </div>
         </div>

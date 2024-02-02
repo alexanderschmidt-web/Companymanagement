@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -22,6 +23,12 @@ public class FahrzeugController {
         this.kfzRepository = kfzRepository;
     }
 
+    /*
+    String dateTimePattern = "dd.MM.yyyy HH:mm";
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
+    String df = dateFormatter.format(dateTimeFromDB);
+            System.out.println(df);
+    */
     @RequestMapping("/kfz/fahrzeugliste")
     public String zeigeFahrzeuge(Model model) {
         var pkws = kfzRepository.findAllPkw(); // alle Fahrzeuge auslesen
@@ -37,6 +44,7 @@ public class FahrzeugController {
             @RequestParam String letztewartungdatum,
             @RequestParam int letztewartungkm,
             @RequestParam int wartungsinterval,
+            @RequestParam int kmstand,
             @RequestParam String fahrzeugTyp,
             @RequestParam String marke,
             @RequestParam String kennzeichen,
@@ -55,6 +63,7 @@ public class FahrzeugController {
             p.setKennzeichen(kennzeichen);
             p.setFahrzeugStatus(FahrzeugStatus.valueOf(status));
             p.setFahrer("");
+            p.setKmstand(kmstand);
             p.setLetztewartung(letzteWart);
             p.setLetztewartungkm(letztewartungkm);
             p.setWartungsinterval(wartungsinterval);
@@ -69,6 +78,7 @@ public class FahrzeugController {
             l.setKennzeichen(kennzeichen);
             l.setFahrzeugStatus(FahrzeugStatus.valueOf(status));
             l.setFahrer("");
+            l.setKmstand(kmstand);
             l.setLetztewartung(letzteWart);
             l.setLetztewartungkm(letztewartungkm);
             l.setWartungsinterval(wartungsinterval);

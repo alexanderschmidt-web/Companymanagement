@@ -1,23 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://thymeleaf.org">
 
-<head th:replace="fragments.html :: head('Neues Fahrzeug')">
-
-    <style>
-        #nameError {
-  display: none;
-  font-size: 0.8em;
-}
-
-#nameError.visible {
-  display: block;
-}
-
-input.invalid {
-  border-color: red;
-}
-    </style>
-</head>
+<head th:replace="fragments.html :: head('Neues Fahrzeug')"></head>
 
 <body>
 
@@ -27,31 +11,37 @@ input.invalid {
   <script>
     function myFunction() {
 
-    var kmEingabe = document.getElementById("letztewartungkm").value;
+    var letztewartungkmEingabe = document.getElementById("letztewartungkm").value;
     var intervallEingabe = document.getElementById("wartungsinterval").value;
-    var datumEingabe = document.getElementById("letztewartungdatum").value;
-    var texterrorkm = "";
+    var datumwartungEingabe = document.getElementById("letztewartungdatum").value;
+    var kmstandEingabe = document.getElementById("kmstand").value;
+    var texterrorkmletztewartung = "";
     var texterrorinterv = "";
-    var texterrordatum = "";
-    if (kmEingabe < 1  ||  intervallEingabe < 1 || datumEingabe == "") {
+    var texterrordatumwartung = "";
+    var texterrorkmstand = "";
+    if (letztewartungkmEingabe < 1  ||  intervallEingabe < 1 || datumwartungEingabe == "" || kmstandEingabe < 1) {
         event.preventDefault();
 
-        if (kmEingabe < 1) {
-            texterrorkm = "Bitte Kilometerstand als Ganzzahl eingeben";
+        if (letztewartungkmEingabe < 1) {
+            texterrorkmletztewartung = "Bitte Kilometerstand als Ganzzahl eingeben";
         }
         if (intervallEingabe < 1) {
             texterrorinterv = "Das Wartungsintervall muss zwischen 1 und 4 Jahren liegen";
         }
-        if (datumEingabe == "") {
-            texterrordatum = "Bitte geben Sie Datum von der letzten Wartung";
+        if (datumwartungEingabe == "") {
+            texterrordatumwartung = "Bitte geben Sie Datum von der letzten Wartung ein";
+        }
+        if (kmstandEingabe < 1) {
+            texterrorkmstand = "Bitte geben Sie aktuelle Km-Stand ein";
         }
     } else {
         return true;
     }
 
-    document.getElementById("errorkm").innerHTML = texterrorkm;
+    document.getElementById("errorkmletztewartung").innerHTML = texterrorkmletztewartung;
     document.getElementById("errorinterv").innerHTML = texterrorinterv;
-    document.getElementById("errordatum").innerHTML = texterrordatum;
+    document.getElementById("errordatumwartung").innerHTML = texterrordatumwartung;
+    document.getElementById("errorkmstand").innerHTML = texterrorkmstand;
 
 }
 
@@ -70,7 +60,7 @@ input.invalid {
                 <select name="fahrzeugTyp" id="fahrzeugTyp" class="form-select">
                     <option value="PKW">PKW</option>
                     <option value="LKW">LKW</option>
-                    <option value="ANHAENGER">Anhänger</option>
+                    <!--<option value="ANHAENGER">Anhänger</option>-->
                 </select>
             </div>
 
@@ -84,6 +74,12 @@ input.invalid {
                 <input type="text" id="kennzeichen" name="kennzeichen" class="form-control">
             </div>
 
+            <div class="mb-3">
+                <label for="kmstand" class="form-label">aktuelle Kilometerstand:</label>
+                <input type="number" id="kmstand" name="kmstand" class="form-control">
+                <span id="errorkmstand" style="font-size: 0.8rem; color:red;"></span>
+            </div>
+
 
 
             <div class="container mb-3">
@@ -94,12 +90,12 @@ input.invalid {
                     <div class="col-4 mb-0 pb-0">
                         <label for="letztewartungdatum" class="form-label">letzte Wartung:</label>
                         <input type="date" id="letztewartungdatum" name="letztewartungdatum" class="form-control">
-                        <span id="errordatum" style="font-size: 0.8rem; color:red;"></span>
+                        <span id="errordatumwartung" style="font-size: 0.8rem; color:red;"></span>
                     </div>
                     <div class="col-4 ms-0 pe-0">
                         <label for="letztewartungkm" class="form-label">durchgeführt bei (km):</label>
                         <input type="number" id="letztewartungkm" name="letztewartungkm" class="form-control">
-                        <span id="errorkm" style="font-size: 0.8rem; color:red;"></span>
+                        <span id="errorkmletztewartung" style="font-size: 0.8rem; color:red;"></span>
                     </div>
                     <div class="col-4 ms-0">
                         <label for="wartungsinterval" class="form-label">Intervall (in Jahren):</label>

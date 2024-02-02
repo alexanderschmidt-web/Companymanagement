@@ -13,7 +13,7 @@
             <div class="col">
 
                 <h2>Fuhrpark</h2>
-
+                <div style="overflow-x:auto;">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -21,6 +21,7 @@
                             <th>Typ</th>
                             <th>Marke</th>
                             <th>Kennzeichen</th>
+                            <th>Km-Stand</th>
                             <th>Status</th>
                             <th>Fahrer</th>
                             <th>Übergabezeit</th>
@@ -35,9 +36,14 @@
                         <td>PKW</td>
                         <td th:text="${p.marke}"></td>
                         <td th:text="${p.kennzeichen}"></td>
+                        <td th:text="${p.kmstand}"></td>
                         <td th:text="${p.fahrzeugStatus}"></td>
                         <td th:text="${p.fahrer}"></td>
-                        <td th:text="${p.uebergabezeit}"></td>
+                        <td>
+                            <div th:if="${p.uebergabezeit}">
+                                <span th:text="${p.getUebergabedatum()} "></span> <span th:text="${p.getUebergabeuhrzeit()}" style="color:grey;"></span>
+                            </div>
+                        </td>
                         <td th:text="${p.rueckgabezeit}"></td>
                         <td th:text="${p.nextewartung}"></td>
                         <td class="col-1">
@@ -66,9 +72,14 @@
                         <td>LKW</td>
                         <td th:text="${l.marke}"></td>
                         <td th:text="${l.kennzeichen}"></td>
+                        <td th:text="${l.kmstand}"></td>
                         <td th:text="${l.fahrzeugStatus}"></td>
                         <td th:text="${l.fahrer}"></td>
-                        <td th:text="${l.uebergabezeit}"></td>
+                        <td>
+                            <div th:if="${l.uebergabezeit}">
+                                <span th:text="${l.getUebergabedatum()} "></span> <span th:text="${l.getUebergabeuhrzeit()}" style="color:grey;"></span>
+                            </div>
+                        </td>
                         <td th:text="${l.rueckgabezeit}"></td>
                         <td th:text="${l.nextewartung}"></td>
                         <td class="col-1">
@@ -95,6 +106,7 @@
                     </tr>
                     </tbody>
                 </table>
+                </div>
 
             </div>
         </div>

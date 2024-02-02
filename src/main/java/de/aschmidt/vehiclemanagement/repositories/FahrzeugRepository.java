@@ -27,7 +27,7 @@ public class FahrzeugRepository {
     public void storePkw(Pkw pkw) {
         try {
             String sql =
-                    "INSERT INTO pkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?)";
+                    "INSERT INTO pkws VALUES (NULL, ?, ?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?)";
 
             //pkw.setUebergabezeit(LocalDateTime.now());
             LocalDate nexteWartung = pkw.getLetztewartung().plusYears(pkw.getWartungsinterval());
@@ -37,6 +37,7 @@ public class FahrzeugRepository {
                     sql,
                     pkw.getMarke(),
                     pkw.getKennzeichen(),
+                    pkw.getKmstand(),
                     pkw.getFahrzeugStatusString(),
                     pkw.getFahrer(),
                     pkw.getLetztewartung(),
@@ -51,7 +52,7 @@ public class FahrzeugRepository {
     public void storeLkw(Lkw lkw) {
         try {
             String sql =
-                    "INSERT INTO lkws VALUES (NULL, ?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?)";
+                    "INSERT INTO lkws VALUES (NULL, ?, ?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?)";
 
             //lkw.setUebergabezeit(LocalDateTime.now());
             LocalDate nexteWartung = lkw.getLetztewartung().plusYears(lkw.getWartungsinterval());
@@ -61,6 +62,7 @@ public class FahrzeugRepository {
                     sql,
                     lkw.getMarke(),
                     lkw.getKennzeichen(),
+                    lkw.getKmstand(),
                     lkw.getFahrzeugStatusString(),
                     lkw.getFahrer(),
                     lkw.getLetztewartung(),
@@ -77,14 +79,12 @@ public class FahrzeugRepository {
         try {
             String sql = "SELECT * FROM pkws";
 
-            String dateTimePattern = "dd.MM.yyyy HH:mm";
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
-
             RowMapper<Fahrzeug> pkwRowMapper = (r, i) -> {
                 Fahrzeug rowObject = new Fahrzeug();
                 rowObject.setId(r.getInt("id"));
                 rowObject.setMarke(r.getString("marke"));
                 rowObject.setKennzeichen(r.getString("kennzeichen"));
+                rowObject.setKmstand(r.getInt("kmstand"));
                 rowObject.setFahrzeugStatus(FahrzeugStatus.valueOf(r.getString("status")));
                 rowObject.setFahrer(r.getString("fahrer"));
 
@@ -97,6 +97,7 @@ public class FahrzeugRepository {
                 LocalDate nextewartungFromDB = r.getObject("nextewartung", LocalDate.class);
                 rowObject.setNextewartung(nextewartungFromDB);
 
+                System.out.println(rowObject.toString());
                 return rowObject;
             };
             return jdbc.query(sql, pkwRowMapper);
@@ -115,6 +116,7 @@ public class FahrzeugRepository {
                 rowObject.setId(r.getInt("id"));
                 rowObject.setMarke(r.getString("marke"));
                 rowObject.setKennzeichen(r.getString("kennzeichen"));
+                rowObject.setKmstand(r.getInt("kmstand"));
                 rowObject.setFahrzeugStatus(FahrzeugStatus.valueOf(r.getString("status")));
                 rowObject.setFahrer(r.getString("fahrer"));
 

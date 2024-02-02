@@ -2,6 +2,8 @@ package de.aschmidt.vehiclemanagement.model.fahrzeug;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Fahrzeug {
 
@@ -32,6 +34,14 @@ public class Fahrzeug {
     public String getKennzeichen() {return kennzeichen;}
     public void setKennzeichen(String kennzeichen) {this.kennzeichen = kennzeichen;}
 
+    private int kmstand;
+    public int getKmstand() {
+        return kmstand;
+    }
+    public void setKmstand(int kmstand) {
+        this.kmstand = kmstand;
+    }
+
     double geschwindigkeit;
     boolean motorIstAn;
 
@@ -47,9 +57,18 @@ public class Fahrzeug {
     public LocalDateTime getUebergabezeit() {
         return uebergabezeit;
     }
+    public LocalDate getUebergabedatum() {
+        LocalDate ld = LocalDate.of(uebergabezeit.getYear(), uebergabezeit.getMonth(), uebergabezeit.getDayOfMonth());
+        return ld;
+    }
+    public LocalTime getUebergabeuhrzeit() {
+        LocalTime ld = LocalTime.of(uebergabezeit.getHour(), uebergabezeit.getMinute());
+        return ld;
+    }
     public void setUebergabezeit(LocalDateTime uebergabezeit) {
         this.uebergabezeit = uebergabezeit;
     }
+
 
     private LocalDateTime rueckgabezeit;
     public LocalDateTime getRueckgabezeit() {
