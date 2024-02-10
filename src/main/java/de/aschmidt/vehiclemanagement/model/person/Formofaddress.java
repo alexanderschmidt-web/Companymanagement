@@ -1,5 +1,5 @@
 package de.aschmidt.vehiclemanagement.model.person;
 
-public enum Anrede {
+public enum Formofaddress {
     HERR, FRAU;
 }

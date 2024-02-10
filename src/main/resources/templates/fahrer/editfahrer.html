@@ -3,13 +3,20 @@
 
 <head th:replace="fragments.html :: head('Fahrer verwalten')"></head>
 
-<body th:with="f=${fahrer[0]}">
+<body th:with="f=${fahrer}">
+<!--<body th:with="f=${fahrer[0]}">-->
 
     <nav th:replace="fragments.html :: mainNav"></nav>
 
     <div class="container mt-4">
 
         <h4>Fahrzeug bearbeiten</h4>
+
+        <div class="container" th:if="${faultId}">
+            <div class="row" style="color:red;">
+                Fahrer [[${f.firstName}]] [[${f.lastName}]] konnte nicht gelöscht werden. Bitte erneut versuchen oder wenden Sie sich an Administrator.
+            </div>
+        </div>
 
         <table class="table table-striped">
             <thead>
@@ -23,9 +30,9 @@
             <tbody>
             <tr>
                 <td th:text="${f.id}"></td>
-                <td th:text="${f.anrede}"></td>
-                <td th:text="${f.vorname}"></td>
-                <td th:text="${f.nachname}"></td>
+                <td th:text="${f.formofaddress}"></td>
+                <td th:text="${f.firstname}"></td>
+                <td th:text="${f.lastname}"></td>
             </tr>
             </tbody>
         </table>

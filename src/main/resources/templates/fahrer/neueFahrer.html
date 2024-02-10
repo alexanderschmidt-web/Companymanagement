@@ -17,21 +17,21 @@
         <form action="/saveFahrer" enctype="json" method="post">
 
             <div class="mb-3">
-                <label for="anrede" class="form-label">Anrede</label>
-                <select name="anrede" id="anrede" class="form-select">
+                <label for="formofaddress" class="form-label">Anrede</label>
+                <select name="formofaddress" id="formofaddress" class="form-select">
                     <option value="HERR">Herr</option>
                     <option value="FRAU">Frau</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="vorname" class="form-label">Vorname</label>
-                <input type="text" id="vorname" name="vorname" class="form-control" >
+                <label for="firstname" class="form-label">Vorname</label>
+                <input type="text" id="firstname" name="firstname" class="form-control" >
             </div>
 
             <div class="mb-3">
-                <label for="nachname" class="form-label">Nachname</label>
-                <input type="text" id="nachname" name="nachname" class="form-control">
+                <label for="lastname" class="form-label">Nachname</label>
+                <input type="text" id="lastname" name="lastname" class="form-control">
             </div>
 
             <button type="submit" class="btn btn-success">Speichern</button>
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-      <div class="container mt-5" th:if="${neueFahrer}">
+      <div class="container mt-5" th:if="${newDriver}">
 
           <h5>Fahrer angelegt:</h5>
 
@@ -54,10 +54,10 @@
               </tr>
               </thead>
               <tbody>
-              <tr th:each="f : ${neueFahrer}">
-                  <td th:text="${f.anrede}"></td>
-                  <td th:text="${f.vorname}"></td>
-                  <td th:text="${f.nachname}"></td>
+              <tr th:each="f : ${newDriver}">
+                  <td th:text="${f.formofaddress}"></td>
+                  <td th:text="${f.firstname}"></td>
+                  <td th:text="${f.lastname}"></td>
               </tr>
               </tbody>
           </table>

@@ -1,26 +1,32 @@
 package de.aschmidt.vehiclemanagement.controller;
 
 import de.aschmidt.vehiclemanagement.model.fahrzeug.Fahrzeug;
-import de.aschmidt.vehiclemanagement.model.person.Fahrer;
+import de.aschmidt.vehiclemanagement.model.person.Driver;
 import de.aschmidt.vehiclemanagement.repositories.FahrzeugRepository;
 import de.aschmidt.vehiclemanagement.repositories.UebergabeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import de.aschmidt.vehiclemanagement.repositories.DriverRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
-public class UebergabeDBController {
+public class UebergabeController {
+
+    @Autowired
+    private DriverRepository driverRepository;
 
     private final UebergabeRepository uebergabeRepository;
     private final FahrzeugRepository fahrzeugRepository;
 
-    public UebergabeDBController(UebergabeRepository uebergabeRepository, FahrzeugRepository fahrzeugRepository) {
+    public UebergabeController(UebergabeRepository uebergabeRepository, FahrzeugRepository fahrzeugRepository) {
         this.uebergabeRepository = uebergabeRepository;
         this.fahrzeugRepository = fahrzeugRepository;
     }
@@ -43,7 +49,8 @@ public class UebergabeDBController {
 
     @RequestMapping(path = "/sucheFahrer", method = RequestMethod.POST)
     public String getFahrer (
-            @RequestParam String nachname,
+            @RequestParam String firstname,
+            @RequestParam String lastname,
             @RequestParam String fahrzeugTyp,
             @RequestParam String marke,
             @RequestParam String kennzeichen,
@@ -54,14 +61,15 @@ public class UebergabeDBController {
         f.setMarke(marke);
         f.setKennzeichen(kennzeichen);
 
-        List<Fahrer> fahrerGefunden =  uebergabeRepository.searchFahrer(nachname);
-        if(fahrerGefunden.isEmpty()) {
+        Optional<Driver> driver =  driverRepository.findByFirstnameAndLastname(firstname, lastname);
+
+        if(driver.isEmpty()) {
             model.addAttribute("gefundeneFahrzeug", gefundenKfz);
             model.addAttribute("fahrerNichtGefunden", "Fahrer wurde nicht gefunden");
             return "uebernahme.html";
         } else {
             /* - Fahrzeug und Fahrer bei Uebergabe zur Bestaetigung senden - */
-            model.addAttribute("fahrerGefunden", fahrerGefunden);
+            model.addAttribute("fahrerGefunden", driver.get());
             model.addAttribute("kfzZurUebergabe", f);
             return "uebernahme.html";
         }
@@ -84,9 +92,9 @@ public class UebergabeDBController {
 
         k.setMarke(marke);
         k.setKennzeichen(kennzeichen);
-        Fahrer f = new Fahrer();
-        f.setVorname(vorname);
-        f.setNachname(nachname);
+        Driver f = new Driver();
+        f.setFirstname(vorname);
+        f.setLastname(nachname);
 
         uebergabeRepository.kfzAnFahrerUebergeben(kennzeichen, nachname, k.getUebergabezeit());
 

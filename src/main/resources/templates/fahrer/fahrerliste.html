@@ -14,29 +14,37 @@
 
                 <h2>Fahrer aus Datenbank</h2>
 
+                <div class="container" th:if="${driverLastName}">
+                    <div class="row" style="color:red;">
+                        Datenabfrage vom Fahrer [[${driverFirstName}]] [[${driverLastName}]] war nicht erfolgreich. Bitte erneut versuchen oder wenden Sie sich an Administrator.
+                    </div>
+                </div>
+
                 <div style="overflow-x:auto;">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>anrede</th>
-                            <th>vorname</th>
-                            <th>nachname</th>
+                            <th>ID</th>
+                            <th>Anrede</th>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     <tr th:each="f : ${fahrer}">
                         <td th:text="${f.id}"></td>
-                        <td th:text="${f.anrede}"></td>
-                        <td th:text="${f.vorname}"></td>
-                        <td th:text="${f.nachname}"></td>
+                        <td th:text="${f.formofaddress}"></td>
+                        <td th:text="${f.firstname}"></td>
+                        <td th:text="${f.lastname}"></td>
                         <td class="col-3">
                             <div class="container">
                                 <div class="row p-0 m-0">
                                     <div class="col-md-auto">
                                         <form action="/fahrer/editFahrer" method="post">
                                             <input type="hidden"  name="id" th:value="${f.id}" class="form-control" >
+                                            <input type="hidden"  name="id" th:value="${f.firstname}" class="form-control" >
+                                            <input type="hidden"  name="id" th:value="${f.lastname}" class="form-control" >
                                             <button type="submit" class="btn btn-warning p-1 m-0">Bearbeiten</button>
                                         </form>
                                     </div>

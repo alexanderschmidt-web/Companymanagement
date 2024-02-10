@@ -28,12 +28,19 @@
                         <div class="container  bg-transparent border">
                             <h5 class="text-danger" th:text="${fahrerNichtGefunden}"></h5>
                             <div class="row  p-0 m-1">
-                                <span> <small> Fahrername eingeben </small> </span>
+                                <span> <midle> Fahrername eingeben </midle> </span>
                             </div>
                             <div class="row p-0 mb-2">
                                 <form action="/sucheFahrer" method="post">
-                                    <div class="col">
-                                        <input type="text"  name="nachname" class="form-control col-md-2" >
+                                    <div class="col pt-2">
+                                        <div class="mb-3">
+                                            <label for="firstname" class="form-label">Vorname</label>
+                                            <input type="text" id="firstname" name="firstname" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="lastname" class="form-label">Nachname</label>
+                                            <input type="text" id="lastname" name="lastname" class="form-control">
+                                        </div>
                                         <input type="hidden"  name="fahrzeugTyp" th:value="${k.fahrzeugTyp}" class="form-control" >
                                         <input type="hidden"  name="marke" th:value="${k.marke}" class="form-control" >
                                         <input type="hidden"  name="kennzeichen" th:value="${k.kennzeichen}" class="form-control" >
@@ -86,9 +93,9 @@
             <tbody>
             <tr th:each="f : ${fahrerGefunden}">
                 <td th:text="${f.id}"></td>
-                <td th:text="${f.anrede}"></td>
-                <td th:text="${f.vorname}"></td>
-                <td th:text="${f.nachname}"></td>
+                <td th:text="${f.formofaddress}"></td>
+                <td th:text="${f.firstname}"></td>
+                <td th:text="${f.lastname}"></td>
                 <td class="col-3">
                     <div class="container">
                         <div class="row p-0 m-0">
@@ -96,8 +103,8 @@
                                 <form action="/updFahrer" method="post">
                                     <!--th:value="${f.nachname}"
                                     th:value="${f.nachname}"-->
-                                    <input type="hidden"  name="vorname" th:value="${f.vorname}" class="form-control">
-                                    <input type="hidden"  name="nachname" th:value="${f.nachname}" class="form-control">
+                                    <input type="hidden"  name="vorname" th:value="${f.firstname}" class="form-control">
+                                    <input type="hidden"  name="nachname" th:value="${f.lastname}" class="form-control">
                                     <input type="hidden"  name="marke" th:value="${kfzZurUebergabe.marke}" class="form-control">
                                     <input type="hidden"  name="kennzeichen" th:value="${kfzZurUebergabe.kennzeichen}" class="form-control">
                                     <button type="submit" class="btn btn-info p-1 m-0">Fahrzeug uebergeben</button>
@@ -136,8 +143,8 @@
                         <div class="container">
                             <div class="row">
                                 <div class="row p-0 m-0">
-                                    <div class="col-md-auto"  th:text="${fahrerMitFahrzeug.vorname}"></div>
-                                    <div class="col-md-auto" th:text="${fahrerMitFahrzeug.nachname}"></div>
+                                    <div class="col-md-auto"  th:text="${fahrerMitFahrzeug.firstname}"></div>
+                                    <div class="col-md-auto" th:text="${fahrerMitFahrzeug.lastname}"></div>
                                 </div>
                             </div>
 
